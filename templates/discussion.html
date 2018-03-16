@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Lecture *lecture_num*</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="discussion1.html">Lecture 1</a></li>
+    <li><a href="#">Lecture 2</a></li>
+    <li><a href="#">Lecture 3</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Lecture *lecture_num*</h1>
+  <p>Lecture *lecture_num* is about...</p>
+  <br><hr>
+  <p>*Posts go here, with a division between each new post*</p>
+  <hr>
+  <p>Another post, and so on. The "<|h|r>" tag stands for horizontal rule and is the lining you see between the previous statement and this one. This should be the last line after a new comment is posted in order to indicate clear separation.</p>
+  <hr>
+
+  <form action="discussion_comments.html" method=get>
+  	<textarea rows="10" cols="125"></textarea><br>
+  	<button type="button">Post Comment</button>
+  </form>
+
+</article>
+
+
+</div>
+
+</body>
+</html>

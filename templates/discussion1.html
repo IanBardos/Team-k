@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Discussion</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="discussion1.html">Lecture 1</a></li>
+    <li><a href="#">Lecture 2</a></li>
+    <li><a href="#">Lecture 3</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Lecture 1</h1>
+  <p>Lecture 1 is about...</p>
+  <br><hr>
+  <p>KEY CHANGES TO NOTICE IN THIS PAGE</p>
+  <hr>
+  <p>The lecture number is now specified; "Lecture 1" is shown as opposed to "Lecture *lecture_num*"</p>
+  <hr>
+
+  <form action="discussion_comments.html" method=get>
+  	<textarea rows="10" cols="125"></textarea><br>
+  	<button type="button">Post Comment</button>
+  </form>
+
+</article>
+
+
+</div>
+
+</body>
+</html>
