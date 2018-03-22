@@ -6,7 +6,7 @@ class User:
 
     Contain parameters:
         name -- string
-        password -- string
+        password -- string###### deleted
         munId -- string -- static
         gender -- string
         logedIn -- boolean
@@ -27,14 +27,23 @@ class User:
 
     ---more parameter may be added
     """
+    
+        def __init__(self, name, munId):
+        name -- string
+        munId -- string
+        self.name = name
+        self.munId = munId
+    
+    # password removed
+    """
     def __init__(self, name, passward, munId):
-        ## name -- string
-        ## password -- string
-        ## munId -- string
+        name -- string
+        password -- string
+        munId -- string
         self.name = name
         self.password = password
         self.munId = munId
-
+    """
 ##----------munId----------------------
     def getmunId(self):
         return self.munId
@@ -46,15 +55,16 @@ class User:
 
     def getName(self):
         return self.name
-    
-##----------password--------------------Question
+## password removed
+"""
+##----------password--------------------
     def setPassword(self, password):
         ## password -- string
         self.password = password
 
     def getPassword(self):
         return self.password
-    
+"""
 ##----------gender----------------------    
     def setGender(self, gender):
         ## gender -- string
