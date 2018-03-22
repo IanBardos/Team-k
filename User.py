@@ -29,17 +29,17 @@ class User:
     """
     
         def __init__(self, name, munId):
-        name -- string
-        munId -- string
+        ## name -- string
+        ## munId -- string
         self.name = name
         self.munId = munId
     
     # password removed
     """
     def __init__(self, name, passward, munId):
-        name -- string
-        password -- string
-        munId -- string
+        ## name -- string
+        ## password -- string
+        ## munId -- string
         self.name = name
         self.password = password
         self.munId = munId
