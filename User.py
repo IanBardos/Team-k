@@ -11,11 +11,16 @@ class User:
         gender -- string
         logedIn -- boolean
         picFile -- string
+        sCourse -- Course[](Course.py)
 
     Contain functions:
         constractor
         accessor for all parameter
         mutator for non-static parameter
+        addSCourse(Course)
+            --Course -- Course(Course.py)
+           removeSCourse(index)
+            --index -- int
         
     ---logedIn state if a user is loged in
     
@@ -40,9 +45,12 @@ class User:
         ## name -- string
         ## password -- string
         ## munId -- string
+        ## sCourse -- Course[](Course.py)
+        
         self.name = name
         self.password = password
         self.munId = munId
+        self.sCourse = []
     """
 ##----------munId----------------------
     def getmunId(self):
@@ -88,4 +96,12 @@ class User:
 
     def getPicFile(self):
         return self.picFile
+    
+##-----------sCourse---------------------
+    def addSCourse(self, Course):
+        ## Course -- Course(Course.py)
+        self.sCourse.append(Course)
+        
+    def deleteSCourse(self,index):
+        self.sCourse.remove(index)
 
