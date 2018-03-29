@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
+      {% block head %}
       <meta charset ="utf-8">
       <Title>Team-k Project</Title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      {% endblock %}
   </head>
   <body>
     {% include 'includes/_navbar.html' %}
-    {% block body%}{% endblock %}
-
+    <div class="container">
+      <br><br><br>
+      {% include 'includes/_Notification.html' %}
+      {% block body%}{% endblock %}
+    </div>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
     </script>
   </body>

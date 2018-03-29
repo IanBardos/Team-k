@@ -1,16 +1,14 @@
 {% extends 'layout.html' %}
 
+
 {% block body %}
 
 <header>
-   <h1>Lecture *lecture_num*</h1>
+   <h1>Lecture {{id}}</h1>
 </header>
 
 <article>
-  <h1>Lecture *lecture_num*</h1>
-  <button>
-  <a href = "/lecture/{{id}}">You can find the lecture here</a>
-</button>
+  <a href = '/lecture/{{id}}'><button type="button">You can find the lecture here</button></a>
   <br><hr>
   <p>*Posts go here, with a division between each new post*</p>
   <hr>
@@ -18,7 +16,7 @@
   <hr>
 <div class = "container">
   <form action="discussion_comments.html" method=get>
-  	<textarea rows="10" cols="125"></textarea><br>
+  	<textarea rows="5" cols="100"></textarea><br>
   	<button type="button">Post Comment</button>
   </form>
 </div>
