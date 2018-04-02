@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+<header>
+   <h1>{{lecture.getTitle()}}</h1>
+</header>
+<div class = "container">
+  <a class="btn btn-success" href="/lecture/{{lecture.getLTid()}}">You can find the lecture here</a>
+  <br>
+  <a class ="btn btn-primary" href = "/lecture/{{lecture.getLTid()}}">Subscribe</a>
+</div>
+
+<article>
+  {% if comments|length > 0 %}
+    {% for comment in comments %}
+      <br><hr>
+      <p>{{comment[0].getInfo()}}</p>
+      <div class = "container">
+        <small><p>Posted by: {{comment[1].getUsername()}}</p></small>
+      </div>
+      <hr>
+      {% endfor %}
+    {% else %}
+      <br><hr>
+      <p>No comments yet</p>
+      <hr>
+    {% endif %}
+<div class = "container">
+  <form action="discussion_comments.html" method=get>
+  	<textarea rows="5" cols="100"></textarea><br>
+  	<button type="button">Post Comment</button>
+  </form>
+</div>
+</article>
+
+
+</body>
+{% endblock %}

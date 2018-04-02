@@ -5,8 +5,11 @@
   <h1>Lectures Page</h1>
   <ul class = "list-group">
     {% for lecture in lectures %}
-      <li class = "list-group-item"><a href = "lecture/{{lecture.id}}">{{lecture.Title}}</a></li>
+      <li class = "list-group-item"><a href = "lecture/{{lecture.getLTid()}}">{{lecture.getTitle()}}</a></li>
     {% endfor %}
   </ul>
+  <br>
+  <a class="btn btn-success" href="/add/{{'Lecture'}}">Add a Lecture</a>
 </div>
+
 {% endblock %}

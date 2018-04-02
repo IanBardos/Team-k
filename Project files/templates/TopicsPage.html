@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div>
+  <h1>Topics Page</h1>
+  <ul class = "list-group">
+    {% for topic in topics %}
+      <li class = "list-group-item"><a href = "topic/{{topic.getLTid()}}">{{topic.getTitle()}}</a></li>
+    {% endfor %}
+  </ul>
+  <br>
+  <a class="btn btn-success" href="/add/{{'Topic'}}">Add a Topic</a>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div>
+  <h1> {{topic.getTitle()}}</h1>
+  <hr>
+  <p>{{topic.getBody() | safe}}</p>
+  <small><small><p>Created by: {{user.getUsername()}}</p></small></small>
+  <a class="btn btn-success" href="/topic/{{topic.getLTid()}}/discussion">Go to Discussion for this topic</a>
+  {% if session.user_id| string() == topic.getCreator()|string() %}
+    <a class="btn btn-success" href="/edit/{{topic.getLTid()}}">Edit</a>
+    <a class="btn btn-danger" href="/delete/{{topic.getLTid()}}">Delete</a>
+  {% endif %}
+</div>
+{% endblock %}
