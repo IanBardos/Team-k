@@ -8,15 +8,8 @@
   <small><small><p>Created by: {{user.getUsername()}}</p></small></small>
   <a class="btn btn-success" href="/topic/{{topic.getLTid()}}/discussion">Go to Discussion for this topic</a>
   {% if session.user_id| string() == topic.getCreator()|string() %}
-    <tr>
-      <td><a class="btn btn-success" href="/edit/{{topic.getLTid()}}">Edit</a></td>
-      <td>
-        <form action="{{url_for('delete_topicLecture', id = topic.getLTid(), type = topic.getType())}}" method="post">
-          <input type="hidden" name="_method" value="DELETE">
-          <input type="submit" value="Delete" class="btn btn-danger">
-        </form>
-      </td>
-    </tr>
+    <a class="btn btn-success" href="/edit/{{topic.getLTid()}}">Edit</a>
+    <a class="btn btn-danger" href="/delete/{{topic.getLTid()}}">Delete</a>
   {% endif %}
 </div>
 {% endblock %}

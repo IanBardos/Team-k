@@ -33,6 +33,6 @@ def editLT(form, toEdit):
     if toEdit.getType() == 'Topic':
         flash('Topic Edited', 'success')
         return redirect(url_for('topics'))
-    elif toEdit.getType() == 'Lecture':
+    elif toEdit.getType()  == 'Lecture':
         flash('Lecture Edited', 'success')
         return redirect(url_for('lectures'))

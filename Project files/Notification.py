@@ -6,7 +6,7 @@ class Notification:
 
     Contain parameter:
         Nid -- int -- id to identify the Notification (must be unique) -- static
-        subscription--  int -- Sid(from class Subscription) -- static -- subscription id
+        subcription --  int -- Sid(from class Subscription) -- static -- subcription id
 
     Contain function:
         Notification(Nid, user)
@@ -16,11 +16,11 @@ class Notification:
         getUser(self)
     """
 
-    def __init__(self, Nid, subscription):
+    def __init__(self, Nid, subcription):
         # Nid -- int
         # subscription -- int -- Uid
         self.Nid = Nid
-        self.subscription = subscription
+        self.subscription = subcription
 
     def getNid(self):
         return self.Nid

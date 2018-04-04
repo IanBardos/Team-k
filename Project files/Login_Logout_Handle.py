@@ -11,7 +11,6 @@ Functions:
 
 from flask import render_template, redirect, url_for, request, session, flash
 from User import User
-from Subscription import Subscription
 from persistance import *
 
 
@@ -45,10 +44,6 @@ def log_in():
             session['logged_in'] = True
             session['user_id'] = data.getUid()
             session['username'] = data.getUsername()
-            subObjects = retrieve(Subscription, "User", data.getUid())
-            session['user_subsciptions'] = []
-            for sub in subObjects:
-                session['user_subsciptions'].append(sub.getLTid())
             flash("You are now logged in", "success")
             return redirect(url_for('home'))
         else:
