@@ -36,7 +36,7 @@ from Subscription import Subscription
 from Notification import Notification
 import sqlite3
 
-__all__ = ['persist', 'backup', 'load', 'retrieve', 'update']
+__all__ = ['persist', 'backup', 'load', 'retrieve', 'update', 'delete']
 
 __defaultfile = "Project.db"
 
@@ -107,6 +107,10 @@ class _LectureTopicORM:
         conn.execute('UPDATE LecturesTopics SET Title=?, Body=? WHERE LTid = ?', [obj.getTitle(), obj.getBody(), obj.getLTid()])
 
     @staticmethod
+    def sql_delete(conn, searchfield, searchval):
+        conn.execute('DELETE FROM LecturesTopics WHERE "{}" = "{}"' .format(searchfield, searchval))
+
+    @staticmethod
     def sql_retrieve(conn, searchfield=None, searchval=None):
         conn.row_factory = sqlite3.Row
         if searchfield:
@@ -144,7 +148,7 @@ class _CommentORM:
 
     @staticmethod
     def sql_persist(conn, obj):
-        conn.execute('INSERT INTO Comments  (Author, Body, votes, LTid) values (?, ?, ?, ?)', [obj.getCommenter(), obj.getBody(), obj.getVotes(), obj.getLTid()])
+        conn.execute('INSERT INTO Comments  (Author, Body, votes, LTid) values (?, ?, ?, ?)', [obj.getCommenter(), obj.getInfo(), obj.getVotes(), obj.getLTid()])
 
     @staticmethod
     def sql_retrieve(conn, searchfield=None, searchval=None):
@@ -160,6 +164,10 @@ class _CommentORM:
             newobj = Comment(tablerow['Cid'], tablerow['Author'], tablerow['Body'], tablerow['votes'], tablerow['LTid'])
             results.append(newobj)
         return results
+
+    @staticmethod
+    def sql_update(conn, obj):
+        conn.execute('UPDATE Comments SET votes=? WHERE Cid = ?', [obj.getVotes(), obj.getCid()])
 
 
 class _SubcriptionORM:
@@ -182,15 +190,15 @@ class _SubcriptionORM:
 
     @staticmethod
     def sql_persist(conn, obj):
-        conn.execute('INSERT INTO Subciptions  (user, LTid) values (?, ?)', [obj.getUser(), obj.getLTid()])
+        conn.execute('INSERT INTO Subscriptions  (user, LTid) values (?, ?)', [obj.getUser(), obj.getLTid()])
 
     @staticmethod
     def sql_retrieve(conn, searchfield=None, searchval=None):
         conn.row_factory = sqlite3.Row
         if searchfield:
-            cur = conn.execute('SELECT * FROM Subciptions WHERE "{}"="{}"'.format(searchfield, searchval))
+            cur = conn.execute('SELECT * FROM Subscriptions WHERE "{}"="{}"'.format(searchfield, searchval))
         else:
-            cur = conn.execute('SELECT * from Subciptions')
+            cur = conn.execute('SELECT * from Subscriptions')
 
         # construct the object
         results = []
@@ -198,6 +206,10 @@ class _SubcriptionORM:
             newobj = Subscription(tablerow['Sid'], tablerow['LTid'], tablerow['user'])
             results.append(newobj)
         return results
+
+    @staticmethod
+    def sql_delete(conn, searchfield, searchval):
+        conn.execute('DELETE FROM Subscriptions WHERE "{}" = "{}"' .format(searchfield, searchval))
 
 
 class _NotificationORM:
@@ -218,7 +230,7 @@ class _NotificationORM:
 
     @staticmethod
     def sql_persist(conn, obj):
-        conn.execute('INSERT INTO Notification  (subcription) values (?)', [obj.getSubcription()])
+        conn.execute('INSERT INTO Notification  (subscription) values (?)', [obj.getSubcription()])
 
     @staticmethod
     def sql_retrieve(conn, searchfield=None, searchval=None):
@@ -234,6 +246,10 @@ class _NotificationORM:
             newobj = Notification(tablerow['Nid'], tablerow['subscription'])
             results.append(newobj)
         return results
+
+    @staticmethod
+    def sql_delete(conn, searchfield, searchval):
+        conn.execute('DELETE FROM Notification WHERE "{}" = "{}"' .format(searchfield, searchval))
 
 
 # lookup dictionary for class-table mappers
@@ -299,6 +315,23 @@ def update(o):
     orm = orms[o.__class__.__name__]  # lookup the correct orm for this class
     conn = sqlite3.connect(__defaultfile)
     orm.sql_update(conn, o)
+    conn.commit()
+    conn.close()
+    return o
+
+
+def delete(clss, searchattr, searchvalue):
+    """Deletes a persisted objects using criteria
+
+       parameters:
+            clss - the class of the objects to retrieve
+            searchattr -- attribute name to find object to delete
+            searchval -- value to find object to delete
+       returns: object that was deleted
+    """
+    orm = orms[clss.__name__]  # lookup the correct orm for this class
+    conn = sqlite3.connect(__defaultfile)
+    o = orm.sql_delete(conn, searchattr, searchvalue)
     conn.commit()
     conn.close()
     return o

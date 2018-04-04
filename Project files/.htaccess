@@ -1,6 +1,0 @@
-AuthType Basic
-AuthBasicProvider ldap
-AuthName "Labexer Auth"
-AuthLDAPURL ldap://ldap.cs.mun.ca/ou=People,ou=CSMath,dc=mun,dc=ca STARTTLS
-
-User okm486,iwbardos,brown, tssolis, yz3208

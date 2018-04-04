@@ -22,13 +22,13 @@ create table Comments(
 );
 
 drop table if exists User;
-create table User (
+create table User(
   Uid integer primary key autoincrement,
   username text not null,
   password text not null
 );
 
-drop table if exists Subcriptions;
+drop table if exists Subscriptions;
 create table Subscriptions(
   Sid integer primary key autoincrement,
   user integer not null,
@@ -46,9 +46,10 @@ create table Notification(
 
 INSERT INTO User (Uid, username, password) values (1, "iwbardos", "123097");
 INSERT INTO User (Uid, username, password) values (2, "test", "12345");
-INSERT INTO LecturesTopics (LTid, type, Title, Body,Author) values (1, "Lecture", "Lecture 1", "Hello", 1);
-INSERT INTO LecturesTopics (LTid, type, Title, Body,Author) values (2, "Topic", "Topic 1", "Hello", 1);
-INSERT INTO Comments (Cid,Author, Body, votes, LTid) values (1, 2,"Here is a comment", 0, 1);
-INSERT INTO Comments (Cid,Author, Body, votes, LTid) values (2, 1,"Here is a comment", 2, 2);
+INSERT INTO LecturesTopics (LTid, type, Title, Body,Author) values (1, "Lecture", "Lecture 1", "This is an example for lectures", 1);
+INSERT INTO LecturesTopics (LTid, type, Title, Body,Author) values (2, "Topic", "Topic 1", "This is an example for topics", 2);
+INSERT INTO Comments (Cid,Author, Body, votes, LTid) values (1, 2,"Here is a comment on the lecture", 0, 1);
+INSERT INTO Comments (Cid,Author, Body, votes, LTid) values (2, 1,"Here is a comment on the topic", 2, 2);
 INSERT INTO Subscriptions (Sid, User, LTid) values (1, 1, 2);
-INSERT INTO Subscriptions (Sid, User, LTid) values (2, 2, 1);
+INSERT INTO Subscriptions (Sid, User, LTid) values (2, 1, 1);
+INSERT INTO Subscriptions (Sid, User, LTid) values (3, 2, 1);
