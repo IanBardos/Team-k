@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class = "container">
+  <h1>My notification page</h1>
+  {% if notifs|length > 0 %}
+  {% for notification in notifs %}
+    {% if notification.getType() == "Lecture"%}
+      <br><hr>
+      <a href="/lecture/{{notification.getLTid()}}/discussion" >Notification from {{notification.getTitle()}}</a></li>
+      <hr>
+    {% else %}
+      <br><hr>
+      <a href="/topic/{{notification.getLTid()}}/discussion" >Notification from {{notification.getTitle()}}</a></li>
+      <hr>
+    {% endif  %}
+    {% endfor %}
+  {% else %}
+    <br><hr>
+    <p>No notifications</p>
+    <hr>
+  {% endif %}
+</div>
+{% endblock %}

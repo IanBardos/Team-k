@@ -9,18 +9,29 @@
 <div class = "container">
   <a class="btn btn-success" href="/topic/{{topic.getLTid()}}">You can find the topic here</a>
   <br>
-  <a class ="btn btn-primary" href = "/topic/{{topic.getLTid()}}">Subscribe</a>
+  {% if is_subbed == False %}
+    <a class ="btn btn-primary" href = "/subscribe/{{topic.getType()}}/{{topic.getLTid()}}">Subscribe</a>
+  {% else %}
+    <a class ="btn btn-danger" href = "/un_subscribe/{{topic.getType()}}/{{topic.getLTid()}}">Unsubscribe</a>
+  {% endif %}
 </div>
 
 <article>
   {% if comments|length > 0 %}
     {% for comment in comments %}
       <br><hr>
+      <p>{{comment[0].getInfo() | safe}}</p>
       <div class = "container">
-        <p>{{comment[0].getInfo()}}</p>
-        <div class = "container">
-          <small><p>Posted by: {{comment[1].getUsername()}}</p></small>
-        </div>
+        <small><p>Posted by: {{comment[1].getUsername()}}</p></small>
+        <small><p>votes: {{comment[0].getVotes()}}</p></small>
+        <tr>
+          <td>
+            <a class ="btn btn-success" href = "/upvote/{{topic.getType()}}/{{topic.getLTid()}}/{{comment[0].getCid()}}">+</a>
+          </td>
+          <td>
+            <a class ="btn btn-danger" href = "/downvote/{{topic.getType()}}/{{topic.getLTid()}}/{{comment[0].getCid()}}">-</a>
+          </td>
+        </tr>
       </div>
       <hr>
       {% endfor %}
@@ -29,12 +40,15 @@
       <p>No comments yet</p>
       <hr>
     {% endif %}
-<div class = "container">
-  <form action="discussion_comments.html" method=get>
-  	<textarea rows="5" cols="100"></textarea><br>
-  	<button type="button">Post Comment</button>
-  </form>
-</div>
+    <div class = "container">
+      {% from "includes/_formHelp.html" import render_field %}
+      <form method = "POST" action ="">
+        <div class="form-group">
+          {{ render_field(form.Body, class_="form-control",  id = 'editor')}}
+        </div>
+        <p><input class="btn btn-primary" type="submit" value="Submit">
+      </form>
+    </div>
 </article>
 
 
