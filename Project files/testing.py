@@ -1,4 +1,5 @@
 import unittest
+import app
 
 from User import User
 from LectureTopic import LectureTopic
@@ -6,6 +7,7 @@ from Comment import Comment
 from Subscription import Subscription
 from Notification import Notification
 from persistance import *
+    
 
 class Test(unittest.TestCase):
     
@@ -15,6 +17,16 @@ class Test(unittest.TestCase):
         self.comment = Comment(1, "author", "info", 2, self.lecture.getLTid())
         self.subscribe = Subscription(1, self.lecture.getLTid(), self.student.getUid())
         self.notify = Notification(1, self.subscribe.getSid())
+
+        self.db_fd, app.app.config['DATABASE'] = tempfile.mkstemp()
+        app.app.testing = True
+        self.app = app.app.test_client()
+        with app.app.app_context():
+            app.init_db()
+
+    def tearDown(self):
+        os.close(self.db_fd)
+        os.unlink(app.app.config['DATABASE'])
 
     """
     User.py TESTS
