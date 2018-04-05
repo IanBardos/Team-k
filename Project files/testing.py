@@ -1,5 +1,12 @@
 import unittest
 
+from User import User
+from LectureTopic import LectureTopic
+from Comment import Comment
+from Subscription import Subscription
+from Notification import Notification
+from persistance import *
+
 class Test(unittest.TestCase):
     
     def setUp(self):        
@@ -7,7 +14,7 @@ class Test(unittest.TestCase):
         self.lecture = LectureTopic(1, "L1", "author", "Lecture", "info")
         self.comment = Comment(1, "author", "info", 2, self.lecture.getLTid())
         self.subscribe = Subscription(1, self.lecture.getLTid(), self.student.getUid())
-        self.notify = Notificaiton(1, self.subscribe.getSid())
+        self.notify = Notification(1, self.subscribe.getSid())
 
     """
     User.py TESTS
@@ -17,7 +24,7 @@ class Test(unittest.TestCase):
         self.assertEqual(self.student.getUid(), 1)
 
     def test_getUsername(self):
-        self.assertEqual(self.student.getUsername(), "username")
+        self.assertEqual(self.student.getUsername(), "user")
 
     def test_getPassword(self):
         self.assertEqual(self.student.getPassword(), "password")
@@ -29,7 +36,7 @@ class Test(unittest.TestCase):
         self.assertEqual(self.lecture.getLTid(), 1)
 
     def test_getTitle(self):
-        self.assertEqual(self.lecture.getTitle, "L1")
+        self.assertEqual(self.lecture.getTitle(), "L1")
 
     def test_getCreator(self):
         self.assertEqual(self.lecture.getCreator(), "author")
@@ -42,7 +49,7 @@ class Test(unittest.TestCase):
 
     def test_setBody(self):
         self.lecture.setBody("new info")
-        self.assertEqual(self.lecture.getInfo(), "new info")
+        self.assertEqual(self.lecture.getBody(), "new info")
     """
     Comment.py TESTS
     getLTid()  is tested in LectureTopic.py tests
@@ -61,13 +68,15 @@ class Test(unittest.TestCase):
         self.assertEqual(self.comment.getCommenter(), "author")
 
     def test_getVotes(self):
-        self.assertEqual(self.commment.getVotes(), 2)
+        self.assertEqual(self.comment.getVotes(), 2)
 
     def test_upVote(self):
-        self.assertEqual(self.commment.upVote(), 3)
+        self.comment.upVote()
+        self.assertEqual(self.comment.getVotes(), 3)
 
     def test_downVote(self):
-        self.assertEqual(self.commment.downVote(), 2)
+        self.comment.downVote()
+        self.assertEqual(self.comment.getVotes(), 1)
 
     """
     Subscription.py TESTS
@@ -88,20 +97,67 @@ class Test(unittest.TestCase):
 
     
     """
-    PERSISTANCE TESTS
-    persistance.py
+    User persistance.py TESTS
     """
 
-    def test_persist_student(self):
+    def test_persist_user(self):
         persisted = persist(self.student)
         self.assertEqual(persisted, self.student)
 
-    def test_update_student(self):
-        #WRITE UPDATE TEST
-    def test_retrieve_student(self):
-        retrieved = retrieve(User, "username", "user")
+    def test_retrieve_user(self):
+        retrieved = retrieve(User)
         self.assertEqual(retrieved, self.student)
 
-    def test_delete_student(self):
-        deleted = delete(User, "username", "user")
+    """
+    LectureTopic persistance.py TESTS
+    """
+
+    def test_persist_LT(self):
+        persisted = persist(self.lecture)
+        self.assertEqual(persisted, self.lecture)
+
+   # def test_update_LT(self):
+        #WRITE UPDATE TEST
+   
+    def test_retrieve_LT(self):
+        retrieved = retrieve(LectureTopic)
+        self.assertEqual(retrieved, self.lecture)
+
+    def test_delete_LT(self):
+        deleted = delete(LectureTopic, "Title", "L1")
         self.assertEqual(deleted, None)
+
+    """
+    Comment persistance.py TESTS
+    """
+
+    def test_persist_comment(self):
+        persisted = persist(self.comment)
+        self.assertEqual(persisted, self.comment)
+
+   # def test_update_comment(self):
+        #WRITE UPDATE TEST
+   
+    def test_retrieve_comment(self):
+        retrieved = retrieve(Comment)
+        self.assertEqual(retrieved, self.comment)
+
+    """
+    Subscription persistance.py TESTS
+    """
+
+    def test_persist_sub(self):
+        persisted = persist(self.subscribe)
+        self.assertEqual(persisted, self.subscribe)
+   
+    def test_retrieve_sub(self):
+        retrieved = retrieve(Subscription)
+        self.assertEqual(retrieved, self.subscribe)
+
+    def test_delete_sub(self):
+        deleted = delete(Subscription, "Sid", 1)
+        self.assertEqual(deleted, None)
+
+        
+if __name__ == '__main__':
+    unittest.main()
